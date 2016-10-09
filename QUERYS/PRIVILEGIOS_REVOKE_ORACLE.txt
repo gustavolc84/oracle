@@ -1,0 +1,37 @@
+-- CRIA UM PERFIL
+CREATE ROLE PERFIL_DESENV
+
+
+--RETIRA PRIVILEGIOS
+
+REVOKE 
+select,
+delete,
+update,
+insert 
+on TB_ITENS_VENDIDO from gustavo;
+
+
+--CONSULTA OS PRIVILEGIOS DO USUARIO
+select 'grant '||privilege||' on '||owner||'.'||table_name||' to '||grantee||';' 
+from dba_tab_privs 
+where grantee = upper('GUSTAVO') order by grantee;
+
+-- CRIA PRIVILEGIOS PARA O PERFIL
+grant
+create cluster,
+create DATABASE LINK,
+CREATE PROCEDURE,
+CREATE SESSION,
+CREATE SEQUENCE,
+CREATE SYNONYM,
+CREATE TABLE,
+CREATE ANY TYPE,
+CREATE TRIGGER,
+CREATE VIEW TO PERFIL_DESENV;
+
+GRANT ALTER SESSION TO PERFIL_DESENV;
+
+
+-- VINCULA OS PRIVILEGIOS DO PERFIL AO USUARIO
+GRANT PERFIL_DESENV TO GUSTAVO;
